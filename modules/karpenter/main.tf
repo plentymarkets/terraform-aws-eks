@@ -292,7 +292,7 @@ data "aws_iam_policy_document" "irsa" {
 
   statement {
     sid       = "AllowPassingInstanceRole"
-    resources = [aws_iam_role.node[0].arn]
+    resources = [var.create_iam_role ? aws_iam_role.this[0].arn : var.iam_role_arn]
     actions   = ["iam:PassRole"]
 
     condition {
