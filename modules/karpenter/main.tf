@@ -486,6 +486,13 @@ resource "aws_iam_role_policy_attachment" "irsa" {
   policy_arn = aws_iam_policy.irsa[0].arn
 }
 
+resource "aws_iam_role_policy_attachment" "irsa_run_instances" {
+  count = local.create_irsa ? 1 : 0
+
+  role       = aws_iam_role.irsa[0].name
+  policy_arn = aws_iam_policy.irsa_run_instances[0].arn
+}
+
 ################################################################################
 # Node Termination Queue
 ################################################################################
