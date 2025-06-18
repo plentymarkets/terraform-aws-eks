@@ -68,6 +68,23 @@ data "aws_iam_policy_document" "irsa" {
   count = local.create_irsa ? 1 : 0
 
   statement {
+    sid = "AllowRunInstances"
+
+    actions = ["ec2:RunInstances"]
+
+    resources = [
+      "arn:${local.partition}:ec2:*::image/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:instance/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:spot-instances-request/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:security-group/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:volume/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:network-interface/*",
+      "arn:${local.partition}:ec2:*:${coalesce(var.irsa_subnet_account_id, local.account_id)}:subnet/*",
+      "arn:${local.partition}:ec2:*:${local.account_id}:launch-template/*",
+    ]
+  }
+
+  statement {
     sid = "AllowScopedEC2InstanceAccessActions"
     resources = [
       "arn:${local.partition}:ec2:${local.region}::image/*",
