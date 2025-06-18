@@ -64,7 +64,7 @@ resource "aws_iam_role" "irsa" {
   tags = merge(var.tags, var.irsa_tags)
 }
 
-data "aws_iam_policy_document" "irsa" {
+data "aws_iam_policy_document" "irsa_run_instances" {
   count = local.create_irsa ? 1 : 0
 
   statement {
@@ -83,6 +83,11 @@ data "aws_iam_policy_document" "irsa" {
       "arn:${local.partition}:ec2:*:${local.account_id}:launch-template/*",
     ]
   }
+}
+
+
+data "aws_iam_policy_document" "irsa" {
+  count = local.create_irsa ? 1 : 0
 
   statement {
     sid = "AllowScopedEC2InstanceAccessActions"
@@ -459,6 +464,17 @@ resource "aws_iam_policy" "irsa" {
   path        = var.irsa_path
   description = var.irsa_description
   policy      = data.aws_iam_policy_document.irsa[0].json
+
+  tags = var.tags
+}
+
+resource "aws_iam_policy" "irsa_run_instances" {
+  count = local.create_irsa ? 1 : 0
+
+  name_prefix = "${local.irsa_name}-instance-"
+  path        = var.irsa_path
+  description = var.irsa_description
+  policy      = data.aws_iam_policy_document.irsa_run_instances[0].json
 
   tags = var.tags
 }
