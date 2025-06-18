@@ -83,6 +83,14 @@ data "aws_iam_policy_document" "irsa_run_instances" {
       "arn:${local.partition}:ec2:*:${local.account_id}:launch-template/*",
     ]
   }
+
+    statement {
+    sid = "AllowRunInstancesAll"
+
+    actions = ["ec2:RunInstances"]
+
+    resources = ["*"]
+  }
 }
 
 
