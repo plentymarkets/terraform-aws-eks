@@ -416,7 +416,8 @@ data "aws_iam_policy_document" "irsa" {
     actions = [
       "iam:AddRoleToInstanceProfile",
       "iam:RemoveRoleFromInstanceProfile",
-      "iam:DeleteInstanceProfile"
+      "iam:DeleteInstanceProfile",
+      "iam:ListInstanceProfiles"
     ]
 
     condition {
