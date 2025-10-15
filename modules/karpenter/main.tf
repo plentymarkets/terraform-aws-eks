@@ -417,7 +417,6 @@ data "aws_iam_policy_document" "irsa" {
       "iam:AddRoleToInstanceProfile",
       "iam:RemoveRoleFromInstanceProfile",
       "iam:DeleteInstanceProfile",
-      "iam:ListInstanceProfiles"
     ]
 
     condition {
@@ -437,6 +436,12 @@ data "aws_iam_policy_document" "irsa" {
       variable = "aws:ResourceTag/karpenter.k8s.aws/ec2nodeclass"
       values   = ["*"]
     }
+  }
+
+  statement {
+    sid       = "AllowListingInstanceProfiles"
+    resources = ["*"]
+    actions   = ["iam:ListInstanceProfiles"]
   }
 
   statement {
