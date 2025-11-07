@@ -91,6 +91,12 @@ data "aws_iam_policy_document" "irsa_run_instances" {
 
     resources = ["*"]
   }
+    statement {
+      sid = "AllowDescribeCapacityReservationsAll"
+      effect  = "Allow"
+      actions = ["ec2:DescribeCapacityReservations"]
+      resources = ["*"]
+  }
 }
 
 
