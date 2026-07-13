@@ -79,6 +79,8 @@ data "aws_iam_policy_document" "irsa" {
       "ec2:DescribeInstanceTypeOfferings",
       "ec2:DescribeAvailabilityZones",
       "ec2:DescribeSpotPriceHistory",
+      "ec2:DescribePlacementGroups",
+      "ec2:DescribeInstanceStatus",
       "pricing:GetProducts",
     ]
 
