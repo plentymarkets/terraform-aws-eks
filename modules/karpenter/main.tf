@@ -290,6 +290,8 @@ data "aws_iam_policy_document" "irsa" {
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeSecurityGroups",
       "ec2:DescribeSpotPriceHistory",
+      "ec2:DescribePlacementGroups",
+      "ec2:DescribeInstanceStatus",
       "ec2:DescribeSubnets"
     ]
 
